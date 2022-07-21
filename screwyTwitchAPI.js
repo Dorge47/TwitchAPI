@@ -1,7 +1,6 @@
 const https = require('https');
 const fs = require('fs');
-const apikey = JSON.parse(fs.readFileSync("apikey.json"));
-function sendRequest(func) {
+function sendRequest(func, apikey) {
     var options = {
         hostname: 'api.twitch.tv',
         path: '/helix/' + func,
@@ -21,15 +20,15 @@ function sendRequest(func) {
         });
     });
 };
-exports.getId = async function(loginName) {
+exports.getId = async function(loginName, apikey) {
     let options = "users?login=" + loginName;
-    let responseStr = await sendRequest(options);
+    let responseStr = await sendRequest(options, apikey);
     let responseObj = JSON.parse(responseStr);
     return responseObj.data[0].id;
 };
-exports.getLiveStreams = async function(userId) {
+exports.getLiveStreams = async function(userId, apikey) {
     let options = "streams?user_id=" + userId;
-    let responseStr = await sendRequest(options);
+    let responseStr = await sendRequest(options), apikey;
     let responseObj = JSON.parse(responseStr);
     return responseObj.data;
 };
