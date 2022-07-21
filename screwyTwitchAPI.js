@@ -28,7 +28,7 @@ exports.getId = async function(loginName, apikey) {
 };
 exports.getLiveStreams = async function(userId, apikey) {
     let options = "streams?user_id=" + userId;
-    let responseStr = await sendRequest(options), apikey;
+    let responseStr = await sendRequest(options, apikey);
     let responseObj = JSON.parse(responseStr);
     return responseObj.data;
 };
